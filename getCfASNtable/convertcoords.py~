@@ -1,0 +1,3 @@
+from getfromtable import grepstuff
+
+list = open("../snlist").readlines()
