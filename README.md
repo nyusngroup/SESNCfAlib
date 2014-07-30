@@ -72,9 +72,9 @@ the directory for the NIR data:
 $SESNPATH/nirphot/PAIRITEL_Ibc/Ibc/lcs/mag/
 must contain the NIR photometry files. the following format is assumed:
 
-#  SN               lII         bII          MW_E(B-V)   z_(helio)      z_(CMB)        RA(2000.0)   DEC(2000.0)
-#..... a bunch more comments here all starting by #
-#passband   MJD        mag      dmag    Telescope/Instrument                               
+\#  SN               lII         bII          MW_E(B-V)   z_(helio)      z_(CMB)        RA(2000.0)   DEC(2000.0)
+\#..... a bunch more comments here all starting by \#
+\#passband   MJD        mag      dmag    Telescope/Instrument                               
 J           53456.29   16.403   0.175   PTEL_F12_PTEL_mosjSN.4.5-2005Mar27_p3.diff.fits    
 J           53461.33   16.279   0.250   PTEL_F12_PTEL_mosjSN.4.8-2005Apr01_p3.diff.fits    
 J           53462.30   16.443   0.046   PTEL_F12_PTEL_mosjSN.4.9-2005Apr02_p3.diff.fits    
