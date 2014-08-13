@@ -18,17 +18,16 @@ assert  snname.lower() in Vmax.keys(),  "skipping object missing from metadata t
 thissn.setsn(sntype[snname.lower()],Vmax[snname.lower()])
 thissn.setphot()
 ##look for galaxy extinction correction
-
 myebmv=0
 for snoff in su.ebmvs.iterkeys():
     if thissn.name.endswith((snoff.strip()).lower()):
             myebmv=su.ebmvs[snoff]
 
-
-thissn.printsn_textable(photometry=True, fout=snname+".phot.tex")   
 thissn.getphot(myebmv)
+
+
 thissn.getcolors()
-thissn.printsn(photometry=True)
-thissn.printsn(color=True)
+thissn.printsn(photometry=True, fout="sn05bf.phot")
+thissn.printsn(color=True, fout="sn05bf_color.phot")
 thissn.plotsn(photometry=True,show=False, fig=0,  relim=False, offsets=True, aspect=0.5, Vmax=False, save=True)
 thissn.plotsn(color=True,show=False, fig=1, ylim=(maxmag,minmag), xlim=(mint-10,maxt+10), relim=False, offsets=True, mylabel=ylabel, aspect=0.5, Vmax=False, legendloc=legendloc,noylabel=noylabel, save=True)
