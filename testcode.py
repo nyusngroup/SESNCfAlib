@@ -20,9 +20,9 @@ thissn.setphot()
 ##look for galaxy extinction correction
 
 myebmv=0
-for snoff in ebmvs.iterkeys():
+for snoff in su.ebmvs.iterkeys():
     if thissn.name.endswith((snoff.strip()).lower()):
-            myebmv=ebmvs[snoff]
+            myebmv=su.ebmvs[snoff]
 
 
 thissn.printsn_textable(photometry=True, fout=snname+".phot.tex")   
