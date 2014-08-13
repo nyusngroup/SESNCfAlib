@@ -1,8 +1,30 @@
+import numpy as np
+import glob, pickle
+import os,inspect,sys
+
+try:
+     libpath=os.environ['SESNPATH']
+
+except KeyError:
+     print "must set environmental variable SESNPATH"
+     sys.exit()
+
+cmd_folder = os.path.realpath(libpath+"/SESNCFAlib")
+if cmd_folder not in sys.path:
+     sys.path.insert(0, cmd_folder)
+
+
+cmd_folder =  os.path.realpath(libpath+"/SESNCFAlib/templates")
+if cmd_folder not in sys.path:
+     sys.path.insert(0, cmd_folder)
+
+
 from snclasses import *
 from templutils import *
 import optparse
 import readinfofile as ri
 import pylabsetup
+
 su=setupvars()
 
 f=glob.glob(os.environ['SESNPATH']+"/finalphot/*05bf*[cf]")

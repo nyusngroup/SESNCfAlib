@@ -8,6 +8,18 @@ import time
 #from sort2vectors import sort2vectors
 from matplotlib.ticker import MultipleLocator, FormatStrFormatter
 #from matplotlib import  FontProperties
+cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]) + "/templates")
+import numpy as np
+import glob, pickle
+import os,inspect,sys
+
+
+
+cmd_folder =  os.path.realpath(os.environ['SESNPATH'])
+if cmd_folder not in sys.path:
+     sys.path.insert(0, cmd_folder)
+
+
 from myastrotools import absmag
 
 from scipy.interpolate import interp1d,splrep,splev
