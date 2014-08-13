@@ -22,7 +22,6 @@ if cmd_folder not in sys.path:
 from snclasses import *
 from templutils import *
 import optparse
-import readinfofile as ri
 import pylabsetup
 
 su=setupvars()
@@ -32,13 +31,13 @@ assert len(f)>0, "no such SN in the data archive"
 f=f[0]
 ##note: all files have extention .c or .f in cfa3 and cfa4
 
-Vmax,sntype=ri.readinfofile()
 thissn=mysn(f)
 fnir = True		
 lc,flux,dflux, snname = thissn.loadsn(f,fnir, verbose=True)
-assert  snname.lower() in Vmax.keys(),  "skipping object missing from metadata table %s"%snname.lower()
+#assert  snname.lower() in Vmax.keys(),  "skipping object missing from metadata table %s"%snname.lower()
+thissn.readinfofileall(verbose=False, earliest=False, loose=True)
      
-thissn.setsn(sntype[snname.lower()],Vmax[snname.lower()])
+thissn.setsn(thissn.metadata['Type'],thissn.Vmax)
 thissn.setphot()
 ##look for galaxy extinction correction
 myebmv=0
