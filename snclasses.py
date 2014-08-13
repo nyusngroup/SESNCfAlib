@@ -123,7 +123,7 @@ class sntype:
                                           xlim=myxlim,ylim=myylim, symbol='%so'%self.su.mycolors[b[0]], alpha=alpha))#                           
 
             loc=1
-            pl.legend(legends,mybands, loc=loc, ncol=1,prop={'size':8})                
+            pl.legend(legends,mybands, loc=loc, ncol=1,prop={'size':8}, numpoints = 1)                
             for i in notused: mybands.remove(i)
             if save:
                 pl.savefig(self.type+".color_"+''.join(mybands)+'.png',bbox_inches='tight')
@@ -919,7 +919,7 @@ class mysn:
                                ylim=myylim, symbol=symbol,offset=offset, fcolor=fcolor)
 
                 legends.append(l)
-                pl.legend(legends,bandswdata, loc=legendloc, ncol=1,prop={'size':12})
+                pl.legend(legends,bandswdata, loc=legendloc, ncol=1,prop={'size':12}, numpoints = 1)
 
                 symbol=''
                 if plotpoly or plottemplate:
@@ -937,24 +937,26 @@ class mysn:
                     if plottemplate and not self.stats[b].templrchisq == 0:
                         print self.templsol[b]
                         myplot_err(fullxrange,self.templsol[b](fullxrange,[self.stats[b].templatefit['stretch'],self.stats[b].templatefit['xoffset'],self.stats[b].templatefit['yoffset'],self.stats[b].templatefit['xstretch']],b), symbol='%s--'%self.su.mycolors[b], offset=offset)
-                if savepng:
-                    pl.savefig(self.name+"_"+b+".template.png", bbox_inches='tight')
-                if save:
-                    thisname=self.name+"_"+b+".template.pdf"
-                    pl.savefig(thisname)
-                    thisdir=            os.environ['SESNPATH']
-                    os.system("perl %s/pdfcrop.pl %s"%(thisdir,thisname))
-                if plotspline:
-                    print "plotting spline"
-                    x = self.photometry[b]['mjd'].astype(np.float64) 
-                    fullxrange=np.arange(min(x),max(x),0.1)
-                    a=self.snspline[b](fullxrange)
-                    smoothed=smooth(a,window_len=5)
-#		    smoothed=sp.signal.filter.medfilter(a,5)
-#                    myplot_err(fullxrange,self.snspline[b](fullxrange),symbol='%s-'%self.su.mycolors[b], offset=offset)
-#                    results = zip([x[0] for x in results], smoothed)
+                if plottemplate :
+                     if savepng :
                     
-                    myplot_err(fullxrange,smoothed,symbol='%s-'%self.su.mycolors[b], offset=offset, settopx=True)
+                          pl.savefig(self.name+"_"+b+".template.png", bbox_inches='tight')
+                     if save :
+                         thisname=self.name+"_"+b+".template.pdf"
+                         pl.savefig(thisname)
+                         thisdir=            os.environ['SESNPATH']
+                         os.system("perl %s/pdfcrop.pl %s"%(thisdir,thisname))
+                     if plotspline:
+                         print "plotting spline"
+                         x = self.photometry[b]['mjd'].astype(np.float64) 
+                         fullxrange=np.arange(min(x),max(x),0.1)
+                         a=self.snspline[b](fullxrange)
+                         smoothed=smooth(a,window_len=5)
+                         #		    smoothed=sp.signal.filter.medfilter(a,5)
+                         #                    myplot_err(fullxrange,self.snspline[b](fullxrange),symbol='%s-'%self.su.mycolors[b], offset=offset)
+                         #                    results = zip([x[0] for x in results], smoothed)
+                         
+                         myplot_err(fullxrange,smoothed,symbol='%s-'%self.su.mycolors[b], offset=offset, settopx=True)
 #                    print smoothed
 
 
@@ -994,7 +996,7 @@ class mysn:
             print "putting second axis"
             if savepng:
                 pl.savefig(self.name+"_"+''.join(mybands)+'.png', bbox_inches='tight')
-            save=True
+#                save=True
             if save:
                 thisname=self.name+"_"+''.join(mybands)+'.pdf'
                 pl.savefig(thisname)
@@ -1112,7 +1114,7 @@ class mysn:
 #                        except:
 #                            pass
 
-                pl.legend(legends[::-1],bandswdata[::-1], loc=1, ncol=1,prop={'size':12})
+                pl.legend(legends[::-1],bandswdata[::-1], loc=1, ncol=1,prop={'size':12}, numpoints = 1)
                 for i in notused: mybands.remove(i)
                 if savepng:
                     bnds="UBVRIriHJK.png"
@@ -1194,7 +1196,7 @@ class mysn:
                 workingbands.append(b)
                 legends.append(l)
 
-            print "here", self.name
+
             if '06jc' in self.name:
                 loc=2
                 ncol=4
@@ -1204,7 +1206,7 @@ class mysn:
                 ncol=1
 
 #            sort2vectors(v1,v2)
-            pl.legend(legends,workingbands, loc=loc, ncol=ncol,prop={'size':12})                
+            pl.legend(legends,workingbands, loc=loc, ncol=ncol,prop={'size':12}, numpoints = 1)
             if singleplot:
                 ax.set_xlabel("phase (days)")
             else:

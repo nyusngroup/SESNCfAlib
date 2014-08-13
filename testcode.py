@@ -2,6 +2,7 @@ from snclasses import *
 from templutils import *
 import optparse
 import readinfofile as ri
+import pylabsetup
 su=setupvars()
 
 f=glob.glob(os.environ['SESNPATH']+"/finalphot/*05bf*[cf]")
@@ -30,5 +31,5 @@ thissn.getcolors()
 thissn.printsn(photometry=True, fout="sn05bf.phot.lcv")
 thissn.printsn(color=True, fout="sn05bf_color.phot.lcv")
 
-thissn.plotsn(photometry=True,  offsets=True, aspect=0.5, Vmax=True, savepng=True, show=True)
+thissn.plotsn(photometry=True,  offsets=True, aspect=0.5, Vmax=True, savepng=True, show=True,  legendloc=2)
 thissn.plotsn(color=True,show=True,  offsets=True, aspect=0.5, Vmax=True, savepng=True)
