@@ -433,7 +433,9 @@ class mysn:
             f= open(fout,'w')
         if photometry:            
             print "##############  photometry by band: ###############"
+            print bands
             for b in bands:
+                print b, self.filters[b] 
                 if self.filters[b] == 0:
                     continue
                 if fout == None:
@@ -651,7 +653,8 @@ class mysn:
             print >>f, "\\colhead{d$K_s$}}"
             print >>f, "\\startdata" 
 
-        f=fo
+        if fout:
+             f=fo
         for i in range(maxn):
             for b in [myu[0],'V','B',myr[0],myi[0]]:
                 if i < len(self.photometry[b]['mjd']):
@@ -685,7 +688,7 @@ class mysn:
 \\label{tab:snoptphot}
 \\end{deluxetable*}'''                
 
-        f=fir
+        if fout :f=fir
         for i in range(maxn):
             for b in ['H','J','K']:
 
@@ -764,7 +767,6 @@ class mysn:
         return(fig, legends,(self.maxcolors[band1]['color'],self.maxcolors[band2]['color']))
 
     def plotsn(self,photometry=False,band='',color=False,c='', fig=None, show=False, verbose=False, save=False, savepng=False, symbol='',title='',Vmax=None, plottemplate=False, plotpoly=False, plotspline=False, relim=True, xlim=None, ylim=None, offsets=False, ylabel='Mag',aspect=1, nir=False,allbands=True, fcolor=None, legendloc=1, nbins=None, singleplot=False, noylabel=False):
-        print "here",self.Vmax
 
         from pylab import rc
         rc('axes', linewidth=2)
@@ -779,7 +781,6 @@ class mysn:
             mpl.rcParams['ytick.major.pad']='6'
         offset=0.0
         boffsets={'U':2,'u':2,'B':1,'V':0,'R':-1,'I':-2,'r':-1,'i':-2, 'J':-3,'H':-4,'K':-5}
-#{'U':-3,'B':-2,'V':0,'R':1,'I':2,'r':1,'i':2, 'J':4,'H':5,'K':6}
         print "\n##############  PLOTTING SUPERNOVA : ",self.name,"###############"
 	myfig=None
         if fig==None:
@@ -1154,10 +1155,12 @@ class mysn:
 #            adjustFigAspect(myfig)#,aspect=aspect)
             legends=[]        
             notused=[]
-            if c== '': mybands=[k for k in self.su.cs.iterkeys()]
+            if c== '': 
+                 mybands=[k for k in self.su.cs.iterkeys()]
+                 if mybands.index("B-i"):
+                      del mybands[mybands.index("B-i")]
+                 print mybands
             else: mybands=[c]
-            print mybands
-
             myylim=(0,0)
             myxlim=(-15,85)
             workingbands=[]
@@ -1263,6 +1266,8 @@ class mysn:
         return myfig
 
     def getphot(self, ebmv=0):
+        print self.su.bands
+        print self.filters
         for b in self.su.bands:
             ##############################setting up band#########################
             if self.filters[b] <=0:

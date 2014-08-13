@@ -172,8 +172,9 @@ def binMeanStdPlot(X,Y,ax=None,numBins=8,xmin=None,xmax=None, binsize=None):
     if xmax is None:
         xmax = X.max()
     if binsize:
-        numBins=int((X.max()-X.min())/binsize)
-    bins = np.linspace(xmin,xmax,binsize)
+        numBins=int((xmax-xmin)/binsize)
+
+    bins = np.linspace(xmin,xmax,numBins+1)
     XX = np.array([np.mean((bins[binInd], bins[binInd+1])) for binInd in range(numBins)])
     YY = np.array([np.mean(Y[(X > bins[binInd]) & (X <= bins[binInd+1])]) for binInd in range(numBins)])
     #XX[np.isnan(YY)]=np.nan

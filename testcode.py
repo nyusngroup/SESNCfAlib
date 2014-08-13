@@ -27,7 +27,8 @@ thissn.getphot(myebmv)
 
 
 thissn.getcolors()
-thissn.printsn(photometry=True, fout="sn05bf.phot")
-thissn.printsn(color=True, fout="sn05bf_color.phot")
-thissn.plotsn(photometry=True,show=False, fig=0,  relim=False, offsets=True, aspect=0.5, Vmax=False, save=True)
-thissn.plotsn(color=True,show=False, fig=1, ylim=(maxmag,minmag), xlim=(mint-10,maxt+10), relim=False, offsets=True, mylabel=ylabel, aspect=0.5, Vmax=False, legendloc=legendloc,noylabel=noylabel, save=True)
+thissn.printsn(photometry=True, fout="sn05bf.phot.lcv")
+thissn.printsn(color=True, fout="sn05bf_color.phot.lcv")
+
+thissn.plotsn(photometry=True,  offsets=True, aspect=0.5, Vmax=True, savepng=True, show=True)
+thissn.plotsn(color=True,show=True,  offsets=True, aspect=0.5, Vmax=True, savepng=True)
