@@ -2,7 +2,7 @@ Library to ingest, process, analyze, and manipulate and the Stripped Envelope Su
 http://www.cfa.harvard.edu/supernova/
 
 
-requires numpy, scipy, and a few more standard python modules. 
+requires numpy, scipy, mpmath, and a few more standard python modules. 
 in addition it requires my astro utilities which are in this github repository: https://github.com/fedhere/fedsastroutils
 
 
@@ -180,114 +180,10 @@ then you can read, process, plot the data.
 
 
 
-here is an example of how to use the library to read, write and plot SN2005bf
+you should be able to run it by typing 
+
+python testcode.py
+
+and testcode can be anywhere on your computer as long as your paths are set correctly
 
 
-import numpy as np
-
-import glob, pickle
-
-import os,inspect,sys
-
-try:
-
-     libpath=os.environ['SESNPATH']
-
-except KeyError:
-
-     print "must set environmental variable SESNPATH"
-
-     sys.exit()
-
-
-
-cmd_folder = os.path.realpath(libpath+"/SESNCFAlib")
-
-if cmd_folder not in sys.path:
-
-     sys.path.insert(0, cmd_folder)
-
-
-
-cmd_folder =  os.path.realpath(libpath+"/SESNCFAlib/templates")
-
-if cmd_folder not in sys.path:
-
-     sys.path.insert(0, cmd_folder)
-
-
-
-
-
-
-from snclasses import *
-
-from templutils import *
-
-import optparse
-
-import readinfofile as ri
-
-su=setupvars()
-
-
-
-f=glob.glob(os.environ['SESNPATH']+"/finalphot/*05bf*[cf]")
-
-assert len(f)>0, "no such SN in the data archive"
-
-f=f[0]
-
-##note: all files have extention .c or .f in cfa3 and cfa4
-
-
-
-Vmax,sntype=ri.readinfofile()
-
-thissn=mysn(f)
-
-fnir = True		
-
-lc,flux,dflux, snname = thissn.loadsn(f,fnir, verbose=True)
-
-assert  snname.lower() in Vmax.keys(),  "skipping object missing from metadata t
-able %s"%snname.lower()
-
-     
-
-thissn.setsn(sntype[snname.lower()],Vmax[snname.lower()])
-
-thissn.setphot()
-
-##look for galaxy extinction correction
-
-
-
-myebmv=0
-
-for snoff in ebmvs.iterkeys():
-
-    if thissn.name.endswith((snoff.strip()).lower()):
-
-            myebmv=ebmvs[snoff]
-
-
-
-
-
-thissn.printsn_textable(photometry=True, fout=snname+".phot.tex")   
-
-thissn.getphot(myebmv)
-
-thissn.getcolors()
-
-thissn.printsn(photometry=True)
-
-thissn.printsn(color=True)
-
-thissn.plotsn(photometry=True,show=False, fig=0,  relim=False, offsets=True, asp
-ect=0.5, Vmax=False, save=True)
-
-thissn.plotsn(color=True,show=False, fig=1, ylim=(maxmag,minmag), xlim=(mint-10,
-maxt+10), relim=False, offsets=True, mylabel=ylabel, aspect=0.5, Vmax=False, leg
-endloc=legendloc,noylabel=noylabel, save=True)
