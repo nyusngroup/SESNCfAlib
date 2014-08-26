@@ -8,9 +8,9 @@ import pylab as pl
 from scipy.stats import nanmean,nanmedian,nanstd
 
 LN10x2p5=5.75646273249
-def is_empty(any_structure):
+def is_empty(any_structure, verbose=False):
     if any_structure:
-        print('Structure is not empty.')
+        if verbose: print('Structure is not empty.')
         return False
     else:
         print('Structure is empty.')

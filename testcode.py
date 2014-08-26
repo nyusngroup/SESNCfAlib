@@ -41,9 +41,16 @@ thissn.setsn(thissn.metadata['Type'],thissn.Vmax)
 thissn.setphot()
 ##look for galaxy extinction correction
 myebmv=0
-for snoff in su.ebmvs.iterkeys():
-    if thissn.name.endswith((snoff.strip()).lower()):
-            myebmv=su.ebmvs[snoff]
+
+assert  thisebmv=su.ebmvs[thissn.snnameshort], "couldnt find ebmv correction in 
+    su=setupvars()"
+try:
+     thisebmv+=su.ebmvhost[thissn.snnameshort]
+except KeyError:
+     pass 
+#for snoff in su.ebmvs.iterkeys():
+#    if thissn.name.endswith((snoff.strip()).lower()):
+#            myebmv=su.ebmvs[snoff]
 
 thissn.getphot(myebmv)
 
