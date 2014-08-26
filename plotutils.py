@@ -123,6 +123,7 @@ def myplot_hist(x,y,xlim=None,ylim=None, symbol=None,alpha=1, offset=0, fig = No
     print nbins
     print xlim[0],xlim[1], np.asarray(x),np.asarray(y),nbins,ax
     print "\n\n\n"
+    
     X,Y,Ystd=binMeanStdPlot(np.asarray(x),np.asarray(y),numBins=nbins,xmin=xlim[0],xmax=xlim[1], ax=ax)
     
     pl.errorbar(X,Y+offset, yerr=Ystd, fmt=None,color=color, ecolor=color,alpha=alpha)
